@@ -53,7 +53,16 @@ main{margin-top:90px;padding:16px}
 .btn-kirim:active{transform:scale(0.98)}
 
 /* MODAL */
-.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.5);
+  z-index:9999; /* ganti ini */
+  align-items:center;
+  justify-content:center;
+  padding:16px
+}
 .modal.active{display:flex}
 .modal-content{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
 .modal-content h3{margin-bottom:16px;font-size:18px}
@@ -105,63 +114,32 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px sol
     <h3>Pilih Layanan:</h3>
     <div class="jam">⏰ 08:00-21:00 WIT</div>
   </div>
-
   <div class="grid">
-    <div class="card active" onclick="openModal('belikan',event)">
-      <div class="card-icon">🛵</div>
-      <div class="card-title">Belikan</div>
-    </div>
-    <div class="card" onclick="openModal('antarkan',event)">
-      <div class="card-icon">🚗</div>
-      <div class="card-title">Antarkan</div>
-    </div>
-    <div class="card" onclick="openModal('ambilkan',event)">
-      <div class="card-icon">📦</div>
-      <div class="card-title">Ambilkan</div>
-    </div>
-    <div class="card" onclick="openModal('ngojek',event)">
-      <div class="card-icon">🍔</div>
-      <div class="card-title">Ngojek</div>
-    </div>
-    <div class="card" id="travelCard" onclick="openModal('travel',event)">
-      <div class="card-icon">✈️</div>
-      <div class="card-title">Travel</div>
-    </div>
-    <div class="card" onclick="openModal('nota',event)">
-      <div class="card-icon">🧾</div>
-      <div class="card-title">Nota Digital</div>
-    </div>
+  <div class="card active" onclick="openModal('belikan', this)">
+    <div class="card-icon">🛵</div>
+    <div class="card-title">Belikan</div>
   </div>
-
-  <button class="btn-kirim" onclick="kirimPesanan()">MEMESAN</button>
-</main>
-
-<!-- MODAL FORM -->
-<div class="modal" id="modal">
-  <div class="modal-content" id="modalContent"></div>
+  <div class="card" onclick="openModal('antarkan', this)">
+    <div class="card-icon">🚗</div>
+    <div class="card-title">Antarkan</div>
+  </div>
+  <div class="card" onclick="openModal('ambilkan', this)">
+    <div class="card-icon">📦</div>
+    <div class="card-title">Ambilkan</div>
+  </div>
+  <div class="card" onclick="openModal('ngojek', this)">
+    <div class="card-icon">🍔</div>
+    <div class="card-title">Ngojek</div>
+  </div>
+  <div class="card" id="travelCard" onclick="openModal('travel', this)">
+    <div class="card-icon">✈️</div>
+    <div class="card-title">Travel</div>
+  </div>
+  <div class="card" onclick="openModal('nota', this)">
+    <div class="card-icon">🧾</div>
+    <div class="card-title">Nota Digital</div>
+  </div>
 </div>
-
-<footer>
-  <div class="footer-btn" onclick="location.reload()">
-    <div class="footer-btn-icon">🏠</div>
-    Home
-  </div>
-  <div class="footer-btn" onclick="share('tiktok')">
-    <div class="footer-btn-icon">🎵</div>
-    TikTok
-  </div>
-  <div class="footer-btn" onclick="share('fb')">
-    <div class="footer-btn-icon">📘</div>
-    FB
-  </div>
-  <div class="footer-btn" onclick="share('wa')">
-    <div class="footer-btn-icon">💬</div>
-    WhatsApp
-  </div>
-  <div class="footer-btn" onclick="installPWA()">
-    <div class="footer-btn-icon">⬇️</div>
-    App
-  </div>
 </footer>
 
 <script>
