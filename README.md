@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+AsararDOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -77,7 +77,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px sol
     </div>
   </div>
   <div class="marquee">
-    <p>⚠️ Info: Istirahat waktu Dzuhur dan Asar</p>
+    <p>⚠️ Info: Istirahat waktu Dzuhur dan Asar,Magrib dan Isya,Malam Jum'at off🙏</p>
   </div>
 </header>
 
@@ -135,7 +135,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px sol
     <div class="footer-btn-icon">🏠</div>Home
   </div>
   <div class="footer-btn" onclick="share('tiktok')">
-    <div class="footer-btn-icon">🎵</div>TikTok
+    <div class="footer-btn-icon">💎</div>TikTok
   </div>
   <div class="footer-btn" onclick="share('fb')">
     <div class="footer-btn-icon">📘</div>FB
@@ -163,7 +163,7 @@ function cekStatus(){
   const jam = new Date().getHours();
   const status = document.getElementById('status');
   const travelCard = document.getElementById('travelCard');
-  if(jam >= 8 && jam < 21){
+  if(jam >= 8 && jam < 24){
     status.textContent = 'Online';
     status.className = 'status';
     travelCard.classList.remove('disabled');
