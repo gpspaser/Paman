@@ -107,27 +107,27 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px sol
   </div>
 
   <div class="grid">
-    <div class="card active" onclick="openModal('belikan')">
+    <div class="card active" onclick="openModal('belikan',event)">
       <div class="card-icon">🛵</div>
       <div class="card-title">Belikan</div>
     </div>
-    <div class="card" onclick="openModal('antarkan')">
+    <div class="card" onclick="openModal('antarkan',event)">
       <div class="card-icon">🚗</div>
       <div class="card-title">Antarkan</div>
     </div>
-    <div class="card" onclick="openModal('ambilkan')">
+    <div class="card" onclick="openModal('ambilkan',event)">
       <div class="card-icon">📦</div>
       <div class="card-title">Ambilkan</div>
     </div>
-    <div class="card" onclick="openModal('ngojek')">
+    <div class="card" onclick="openModal('ngojek',event)">
       <div class="card-icon">🍔</div>
       <div class="card-title">Ngojek</div>
     </div>
-    <div class="card" id="travelCard" onclick="openModal('travel')">
+    <div class="card" id="travelCard" onclick="openModal('travel',event)">
       <div class="card-icon">✈️</div>
       <div class="card-title">Travel</div>
     </div>
-    <div class="card" onclick="openModal('nota')">
+    <div class="card" onclick="openModal('nota',event)">
       <div class="card-icon">🧾</div>
       <div class="card-title">Nota Digital</div>
     </div>
@@ -206,10 +206,14 @@ function autoSlide(){
 }
 
 // MODAL FORM
-function openModal(jenis){
+function openModal(jenis, event){
   layananAktif = jenis;
-  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-  event.currentTarget.classList.add('active');
+  
+  // Hilangin error kalau event undefined
+  if(event){
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+  }
 
   let html = '';
   if(jenis==='belikan'){
@@ -238,7 +242,7 @@ function openModal(jenis){
       <textarea id="catatan" placeholder="Catatan Pesanan"></textarea>`;
   }
   if(jenis==='ngojek'){
-    html = `<h3>🛵 Form Ngojek</h3>
+    html = `<h3>🍔 Form Ngojek</h3>
       <input type="text" id="nama" placeholder="Nama">
       <input type="tel" id="wa" placeholder="No WhatsApp">
       <input type="text" id="jemput" placeholder="Jemput di">
