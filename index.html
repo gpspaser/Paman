@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paman Kurir - Tanahgrogot</title>
+<meta name="theme-color" content="#FFD700">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{background:#F5F5F5;padding:16px;padding-bottom:70px}
+h2{font-size:24px;font-weight:700;margin-bottom:4px}
+p{color:#666;margin-bottom:20px}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:#fff;border-radius:12px;padding:16px;text-align:center;cursor:pointer;border:2px solid transparent;transition:0.2s}
+.card.active{border-color:#FFD700;background:#FFFDE7}
+.card.disabled{opacity:0.4;pointer-events:none}
+
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-content{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+.modal-content h3{margin-bottom:16px;font-size:18px}
+.modal-content input,.modal-content textarea{width:100%;padding:12px;border:1px solid #E0E0E0;border-radius:8px;margin-bottom:12px;font-size:14px}
+.modal-actions{display:flex;gap:10px;margin-top:12px}
+.modal-actions button{flex:1;padding:12px;border:none;border-radius:8px;font-weight:600;cursor:pointer}
+.btn-batal{background:#F5F5F5}
+.btn-submit{background:#FFD700}
+</style>
+</head>
+<body>
+
+<h2>Paman Kurir</h2>
+<p id="status">Tanahgrogot - Online</p>
+
+<div class="grid">
+  <div class="card active" onclick="openModal('belikan', this)">🛵<br>Belikan</div>
+  <div class="card" onclick="openModal('antarkan', this)">🚗<br>Antarkan</div>
+  <div class="card" onclick="openModal('ambilkan', this)">📦<br>Ambilkan</div>
+  <div class="card" onclick="openModal('ngojek', this)">🍔<br>Ngojek</div>
+  <div class="card" id="travelCard" onclick="openModal('travel', this)">✈️<br>Travel</div>
+  <div class="card" onclick="openModal('nota', this)">🧾<br>Nota Digital</div>
+</div>
+
+<div class="modal" id="modal" onclick="closeModal()">
+  <div class="modal-content" id="modalContent" onclick="event.stopPropagation()"></div>
+</div>
+
+<script>
+const WA_KURIR = '6283137527300';
+let layananAktif = 'belikan';
+
+function openModal(jenis, el){
+  layananAktif = jenis;
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+
+  let html = `<h3>Form ${jenis}</h3>
+    <input type="text" id="nama" placeholder="Nama">
+    <input type="tel" id="wa" placeholder="No WhatsApp">`;
+  
+  if(jenis==='belikan'){
+    html += `<input type="text" id="antar" placeholder="Antar ke">
+    <label style="font-size:13px;color:#666">List Belanjaan:</label>`;
+    for(let i=1;i<=3;i++){
+      html += `<input type="text" placeholder="Item ${i}">`;
+    }
+  }
+  
+  if(jenis==='antarkan'){
+    html += `<input type="text" id="antar" placeholder="Antar ke">
+    <textarea placeholder="Keterangan barang"></textarea>`;
+  }
+
+  html += `<div class="modal-actions">
+    <button class="btn-batal" onclick="closeModal()">Batal</button>
+    <button class="btn-submit" onclick="kirimKeWA()">Kirim ke WhatsApp</button>
+  </div>`;
+
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+}
+
+function kirimKeWA(){
+  const nama = document.getElementById('nama').value;
+  const wa = document.getElementById('wa').value;
+  if(!nama || !wa){alert('Isi nama dan WA!');return;}
+  
+  let pesan = `ORDER PAMAN KURIR%0ALayanan: ${layananAktif}%0ANama: ${nama}%0AWA: ${wa}`;
+  closeModal();
+  window.open(`https://wa.me/${WA_KURIR}?text=${pesan}`, '_blank');
+}
+
+// Cek jam online/offline
+const jam = new Date().getHours();
+if(jam < 8 || jam >= 21){
+  document.getElementById('status').textContent = 'Tanahgrogot - Offline';
+  document.getElementById('travelCard').classList.add('disabled');
+}
+</script>
+</body>
+</html>
